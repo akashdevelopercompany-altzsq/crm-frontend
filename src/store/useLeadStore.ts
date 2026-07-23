@@ -29,9 +29,9 @@ interface LeadStore {
   addLead: (leadData: Partial<Lead>, token: string) => Promise<boolean>;
 }
 
-const API_URL = typeof window !== 'undefined'
-  ? (window.location.hostname === 'localhost' ? 'https://crm-backend-production-a511.up.railway.app/' : `${window.location.origin}/api/v1`)
-  : 'https://crm-backend-production-a511.up.railway.app/';
+const API_URL = process.env.NEXT_PUBLIC_API_URL 
+  ? (process.env.NEXT_PUBLIC_API_URL.endsWith('/') ? process.env.NEXT_PUBLIC_API_URL.slice(0, -1) : process.env.NEXT_PUBLIC_API_URL)
+  : 'https://crm-backend-production-a511.up.railway.app';
 
 export const useLeadStore = create<LeadStore>((set, get) => ({
   leads: [],

@@ -67,14 +67,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     if (!globalTelephonySocket) {
-      const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-      const socketUrl = hostname === 'localhost' || hostname === '127.0.0.1'
-        ? 'https://crm-backend-production-a511.up.railway.app/'
-        : (typeof window !== "undefined"
-          ? (window.location.hostname.includes("devtunnels.ms")
-            ? "https://" + window.location.hostname.replace(/-\d+\./, "-3005.")
-            : "http://" + window.location.hostname + ":3005")
-          : "https://b5tvsxt0-3005.inc1.devtunnels.ms");
+      const socketUrl = process.env.NEXT_PUBLIC_API_URL || 'https://crm-backend-production-a511.up.railway.app/';
       globalTelephonySocket = io(socketUrl, {
         transports: ['websocket'],
         reconnection: true,
@@ -87,10 +80,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     if (!globalMediaSocket) {
-      const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-      const mediaSocketUrl = hostname === 'localhost' || hostname === '127.0.0.1'
-        ? 'https://crm-backend-callservices-production.up.railway.app/'
-        : `http://${hostname}:4000`;
+      const mediaSocketUrl = process.env.NEXT_PUBLIC_MEDIA_URL || 'https://crm-backend-callservices-production.up.railway.app/';
       globalMediaSocket = io(mediaSocketUrl, {
         transports: ['websocket'],
         reconnection: true,

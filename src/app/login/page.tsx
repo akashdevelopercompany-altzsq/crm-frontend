@@ -38,14 +38,9 @@ export default function LoginPage() {
     setError('');
 
     try {
-      // Determine host dynamically (falls back to local port 3005 NestJS auth endpoint)
-      const isClient = typeof window !== 'undefined';
-      const hostname = isClient ? window.location.hostname : 'localhost';
-      const apiEndpoint = (hostname === 'localhost' || hostname === '127.0.0.1')
-        ? 'https://crm-backend-production-a511.up.railway.app/auth/login'
-        : (isClient && window.location.hostname.includes('devtunnels.ms')
-          ? 'https://' + window.location.hostname.replace(/-\d+\./, '-3005.') + '/auth/login'
-          : `${isClient ? window.location.origin : 'https://crm-backend-production-a511.up.railway.app/'}/auth/login`);
+      const apiEndpoint = process.env.NEXT_PUBLIC_API_URL 
+        ? `${process.env.NEXT_PUBLIC_API_URL}/auth/login` 
+        : 'https://crm-backend-production-a511.up.railway.app/auth/login';
 
       const res = await fetch(apiEndpoint, {
         method: 'POST',

@@ -64,13 +64,9 @@ export const useCallStore = create<CallState>((set) => ({
   toggleHold: () => set((state) => ({ isHold: !state.isHold })),
   fetchDashboardCalls: async () => {
     try {
-      const baseUrl = typeof window !== 'undefined'
-        ? (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-          ? 'https://crm-backend-production-a511.up.railway.app'
-          : (window.location.hostname.includes('devtunnels.ms')
-            ? 'https://' + window.location.hostname.replace(/-\d+\./, '-3005.')
-            : 'http://' + window.location.hostname + ':3005'))
-        : 'https://crm-backend-production-a511.up.railway.app/';
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL 
+        ? (process.env.NEXT_PUBLIC_API_URL.endsWith('/') ? process.env.NEXT_PUBLIC_API_URL.slice(0, -1) : process.env.NEXT_PUBLIC_API_URL)
+        : 'https://crm-backend-production-a511.up.railway.app';
       const res = await fetch(`${baseUrl}/exotel/dashboard-calls`);
       if (res.ok) {
         const data = await res.json();
