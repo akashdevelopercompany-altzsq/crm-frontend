@@ -38,7 +38,7 @@ export function AddAgentModal({ onClose, onSuccess }: AddAgentModalProps) {
     setIsSubmitting(true);
     try {
       const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-      const res = await fetch(`https://crm-backend-production-a511.up.railway.app/api/v1/agents/create`, {
+      const res = await fetch(`https://060tzm8w-3005.inc1.devtunnels.ms/api/v1/agents/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

@@ -18,7 +18,7 @@ export function OverallDashboard() {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('paramantra_access_token') || '';
-        const res = await fetch('https://crm-backend-production-a511.up.railway.app/agents/dashboard-metrics', {
+        const res = await fetch('https://060tzm8w-3005.inc1.devtunnels.ms/agents/dashboard-metrics', {
           headers: { Authorization: `Bearer ${token}` }
         });
         const json = await res.json();
@@ -48,10 +48,7 @@ export function OverallDashboard() {
       <div className="flex h-full">
         {/* Main Dashboard Area */}
         <div className="flex-1 p-4 border-r border-[#222] relative">
-          {/* Header */}
-          <header className="absolute top-2 right-4 text-right z-10 pointer-events-none">
-            <h1 className="text-lg font-bold text-white/40 mb-0.5 uppercase tracking-widest">Overall Command Center</h1>
-          </header>
+
 
           {/* KPI Grid (12 cards) */}
           <div className="mb-3">
