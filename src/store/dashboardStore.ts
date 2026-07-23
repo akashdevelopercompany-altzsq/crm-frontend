@@ -64,7 +64,7 @@ export const useDashboardStore = create<DashboardState>((set, get) => ({
       const { activeType, startDate, endDate, department, team, agentId } = get();
       const token = localStorage.getItem('paramantra_access_token') || '';
 
-      let url = `https://crm-backend-production-a511.up.railway.app/dashboard/analytics?type=${activeType}`;
+      let url = `https://060tzm8w-3005.inc1.devtunnels.ms/dashboard/analytics?type=${activeType}`;
       if (startDate) url += `&startDate=${startDate}T00:00:00Z`;
       if (endDate) url += `&endDate=${endDate}T23:59:59Z`;
       if (department && department !== 'All') url += `&department=${department}`;

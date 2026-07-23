@@ -90,7 +90,7 @@ export const useConversationStore = create<ConversationState>((set, get) => ({
   fetchConversations: async () => {
     set({ isLoading: true, error: null });
     try {
-      const res = await fetch(`https://crm-backend-callservices-production.up.railway.app/api/v1/conversations`);
+      const res = await fetch(`https://060tzm8w-4000.inc1.devtunnels.ms/api/v1/conversations`);
       if (!res.ok) throw new Error('Failed to fetch conversations');
       const data = await res.json();
       set({ conversations: data, isLoading: false });
@@ -128,7 +128,7 @@ export const useConversationStore = create<ConversationState>((set, get) => ({
     set({ isMessagesLoading: true, error: null });
     try {
       const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-      const res = await fetch(`https://crm-backend-callservices-production.up.railway.app/api/v1/conversations/${conversationId}/messages`);
+      const res = await fetch(`https://060tzm8w-4000.inc1.devtunnels.ms/api/v1/conversations/${conversationId}/messages`);
       if (!res.ok) throw new Error('Failed to fetch messages');
       const data = await res.json();
       set((state) => ({
@@ -144,7 +144,7 @@ export const useConversationStore = create<ConversationState>((set, get) => ({
     set({ isCustomerLoading: true, error: null });
     try {
       const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-      const res = await fetch(`https://crm-backend-callservices-production.up.railway.app/api/v1/customers/${customerId}`);
+      const res = await fetch(`https://060tzm8w-4000.inc1.devtunnels.ms/api/v1/customers/${customerId}`);
       if (!res.ok) throw new Error('Failed to fetch customer profile');
       const data = await res.json();
       set({ activeCustomerProfile: data, isCustomerLoading: false });
@@ -310,16 +310,11 @@ export const useConversationStore = create<ConversationState>((set, get) => ({
     }));
 
     try {
-      const baseUrl = typeof window !== 'undefined'
-        ? (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-          ? 'https://crm-backend-callservices-production.up.railway.app'
-          : (window.location.hostname.includes('devtunnels.ms')
-            ? `https://${window.location.hostname.replace(/-\d+\./, '-4000.')}`
-            : `http://${window.location.hostname}:4000`))
-        : 'https://crm-backend-callservices-production.up.railway.app';
+      let baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://crm-backend-production-a511.up.railway.app';
+      if (baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1);
 
-      await fetch(`${baseUrl}/api/v1/conversations/${conversationId}/read`, {
-        method: 'PUT'
+      const response = await fetch(`${baseUrl}/api/v1/conversations/${conversationId}/read`, {
+        method: 'PUT',
       });
     } catch (error) {
       console.error('Failed to mark conversation as read:', error);

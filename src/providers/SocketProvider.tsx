@@ -54,7 +54,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
     if (!globalSocket) {
       const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-      globalSocket = io("https://crm-backend-production-a511.up.railway.app/", {
+      globalSocket = io("https://060tzm8w-3005.inc1.devtunnels.ms/", {
         path: '/socket.io',
         transports: ['websocket'],
         reconnection: true,
@@ -67,7 +67,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     if (!globalTelephonySocket) {
-      const socketUrl = process.env.NEXT_PUBLIC_API_URL || 'https://crm-backend-production-a511.up.railway.app/';
+      const socketUrl = process.env.NEXT_PUBLIC_API_URL || 'https://060tzm8w-3005.inc1.devtunnels.ms/';
       globalTelephonySocket = io(socketUrl, {
         transports: ['websocket'],
         reconnection: true,
@@ -80,7 +80,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     if (!globalMediaSocket) {
-      const mediaSocketUrl = process.env.NEXT_PUBLIC_MEDIA_URL || 'https://crm-backend-callservices-production.up.railway.app/';
+      const mediaSocketUrl = process.env.NEXT_PUBLIC_MEDIA_URL || 'https://060tzm8w-4000.inc1.devtunnels.ms/';
       globalMediaSocket = io(mediaSocketUrl, {
         transports: ['websocket'],
         reconnection: true,
@@ -292,12 +292,9 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
       const { status, incomingCall, setIncomingCall } = useCallStore.getState();
       if (status === 'AVAILABLE' && !incomingCall && user?.id) {
         try {
-          const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-          const apiUrl = hostname === 'localhost' || hostname === '127.0.0.1'
-            ? `https://crm-backend-production-a511.up.railway.app/exotel/my-ringing-call?agentId=${user.id}`
-            : (window.location.hostname.includes('devtunnels.ms')
-              ? `https://${window.location.hostname.replace(/-\d+\./, '-3005.')}/exotel/my-ringing-call?agentId=${user.id}`
-              : `http://${hostname}:3005/exotel/my-ringing-call?agentId=${user.id}`);
+          let baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://crm-backend-production-a511.up.railway.app';
+          if (baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1);
+          const apiUrl = `${baseUrl}/exotel/my-ringing-call?agentId=${user.id}`;
 
           const res = await fetch(apiUrl);
           if (res.ok) {
@@ -311,7 +308,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
           // Ignore fetch errors during polling
         }
       }
-    }, 1500);
+    }, 5000);
 
     // Clean up event listeners on unmount (prevent duplication on re-renders)
     return () => {
