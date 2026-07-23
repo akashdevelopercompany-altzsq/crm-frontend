@@ -15,7 +15,7 @@ export default function AgentsPage() {
     try {
       setIsLoading(true);
       const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-      const res = await fetch(`https://crm-backend-production-a511.up.railway.app/api/v1/agents`);
+      const res = await fetch(`https://060tzm8w-3005.inc1.devtunnels.ms/api/v1/agents`);
       if (res.ok) {
         const data = await res.json();
         setAgents(data.agents || []);

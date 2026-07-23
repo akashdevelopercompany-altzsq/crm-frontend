@@ -35,7 +35,7 @@ export default function CalendarPage() {
     setIsLoading(true);
     try {
       const token = localStorage.getItem('paramantra_access_token');
-      const res = await fetch(`https://crm-backend-production-a511.up.railway.app/calendar`, {
+      const res = await fetch(`https://060tzm8w-3005.inc1.devtunnels.ms/calendar`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.ok) {
@@ -59,7 +59,7 @@ export default function CalendarPage() {
       }
 
       const token = localStorage.getItem('paramantra_access_token');
-      const res = await fetch(`https://crm-backend-production-a511.up.railway.app/leads`, {
+      const res = await fetch(`https://060tzm8w-3005.inc1.devtunnels.ms/leads`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
@@ -109,7 +109,7 @@ export default function CalendarPage() {
   const handleCreateEvent = async (data: any) => {
     try {
       const token = localStorage.getItem('paramantra_access_token');
-      const res = await fetch(`https://crm-backend-production-a511.up.railway.app/calendar`, {
+      const res = await fetch(`https://060tzm8w-3005.inc1.devtunnels.ms/calendar`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -36,7 +36,7 @@ export default function LeadUploadPage() {
     formData.append('uploadedById', userId);
 
     try {
-      const res = await fetch(`https://crm-backend-callservices-production.up.railway.app/api/v1/leads/upload`, {
+      const res = await fetch(`https://060tzm8w-4000.inc1.devtunnels.ms/api/v1/leads/upload`, {
         method: 'POST',
         body: formData,
       });

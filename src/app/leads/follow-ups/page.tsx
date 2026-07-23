@@ -11,7 +11,7 @@ export default function LeadFollowUpsPage() {
   useEffect(() => {
     const fetchFollowups = async () => {
       try {
-        const res = await fetch(`https://crm-backend-callservices-production.up.railway.app/api/v1/followups`);
+        const res = await fetch(`https://060tzm8w-4000.inc1.devtunnels.ms/api/v1/followups`);
         if (!res.ok) throw new Error('Failed to fetch followups');
         const data = await res.json();
         if (Array.isArray(data)) {
@@ -32,7 +32,7 @@ export default function LeadFollowUpsPage() {
 
   const handleComplete = async (id: string) => {
     try {
-      await fetch(`https://crm-backend-callservices-production.up.railway.app/api/v1/followups/${id}/status`, {
+      await fetch(`https://060tzm8w-4000.inc1.devtunnels.ms/api/v1/followups/${id}/status`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: 'COMPLETED' })

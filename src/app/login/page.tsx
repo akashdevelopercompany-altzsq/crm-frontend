@@ -40,7 +40,7 @@ export default function LoginPage() {
     try {
       const apiEndpoint = process.env.NEXT_PUBLIC_API_URL 
         ? `${process.env.NEXT_PUBLIC_API_URL}/auth/login` 
-        : 'https://crm-backend-production-a511.up.railway.app/auth/login';
+        : 'https://060tzm8w-3005.inc1.devtunnels.ms/auth/login';
 
       const res = await fetch(apiEndpoint, {
         method: 'POST',

@@ -10,7 +10,7 @@ export default function LeadAnalyticsPage() {
   useEffect(() => {
     const fetchAnalytics = async () => {
       try {
-        const res = await fetch(`https://crm-backend-callservices-production.up.railway.app/api/v1/leads/analytics/dashboard`);
+        const res = await fetch(`https://060tzm8w-4000.inc1.devtunnels.ms/api/v1/leads/analytics/dashboard`);
         const json = await res.json();
         setData(json);
       } catch (error) {
