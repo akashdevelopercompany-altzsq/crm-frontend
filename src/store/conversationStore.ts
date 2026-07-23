@@ -166,7 +166,16 @@ export const useConversationStore = create<ConversationState>((set, get) => ({
 
     // Normalize message properties
     const normalizedSender = (msgObj.sender || msgObj.senderType?.toLowerCase() || 'agent') as 'agent' | 'customer' | 'system';
-    const normalizedTimestamp = msgObj.timestamp || (msgObj.createdAt ? new Date(msgObj.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+    
+    let normalizedTimestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const rawTime = msgObj.createdAt || msgObj.timestamp;
+    if (rawTime) {
+      const parsed = new Date(rawTime);
+      normalizedTimestamp = (!isNaN(parsed.getTime()) && String(rawTime).includes('T')) 
+        ? parsed.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
+        : rawTime;
+    }
+
     const normalizedStatus = (msgObj.status?.toLowerCase() || 'sent') as 'sent' | 'delivered' | 'read';
 
     const normalizedMsg: Message = {
@@ -216,7 +225,16 @@ export const useConversationStore = create<ConversationState>((set, get) => ({
 
     // Normalize message properties
     const normalizedSender = (msgObj.sender || msgObj.senderType?.toLowerCase() || 'customer') as 'agent' | 'customer' | 'system';
-    const normalizedTimestamp = msgObj.timestamp || (msgObj.createdAt ? new Date(msgObj.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+    
+    let normalizedTimestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const rawTime = msgObj.createdAt || msgObj.timestamp;
+    if (rawTime) {
+      const parsed = new Date(rawTime);
+      normalizedTimestamp = (!isNaN(parsed.getTime()) && String(rawTime).includes('T')) 
+        ? parsed.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
+        : rawTime;
+    }
+
     const normalizedStatus = (msgObj.status?.toLowerCase() || 'delivered') as 'sent' | 'delivered' | 'read';
 
     const normalizedMsg: Message = {

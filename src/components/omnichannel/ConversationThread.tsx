@@ -2,11 +2,11 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useConversationStore } from '@/store/conversationStore';
-import { Send, PhoneCall, Check, CheckCheck, FileText, Sparkles, Mic, Paperclip, MoreVertical, Loader2 } from 'lucide-react';
+import { Send, PhoneCall, Check, CheckCheck, FileText, Sparkles, Mic, Paperclip, MoreVertical, Loader2, ChevronLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function ConversationThread() {
-  const { activeConversationId, conversations, messages, typingStatus, isMessagesLoading, addMessage } = useConversationStore();
+  const { activeConversationId, conversations, messages, typingStatus, isMessagesLoading, addMessage, setActiveConversation } = useConversationStore();
   const [inputText, setInputText] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -143,6 +143,12 @@ export function ConversationThread() {
       {/* Header */}
       <div className="h-16 border-b border-[#222] bg-[#050505] px-6 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-3">
+          <button 
+            onClick={() => setActiveConversation(null as any)}
+            className="md:hidden p-2 -ml-4 mr-1 text-slate-400 hover:text-white transition-colors"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
           <div className="relative shrink-0 w-8 h-8">
             {activeConv.customerAvatar ? (
               <img
